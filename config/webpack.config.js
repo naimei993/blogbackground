@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
+const px2rem = require('postcss-px2rem-exclude');
 const PnpWebpackPlugin = require('pnp-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
@@ -128,6 +129,9 @@ module.exports = function (webpackEnv) {
                 flexbox: 'no-2009',
               },
               stage: 3,
+            }),
+            px2rem({
+              remUnit:75,exclude: /node_modules/i
             }),
             // Adds PostCSS Normalize as the reset css with default options,
             // so that it honors browserslist config in package.json
