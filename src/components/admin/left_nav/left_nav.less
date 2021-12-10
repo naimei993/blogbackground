@@ -5,24 +5,48 @@
     height: 64px;
     align-items: center;
     border-bottom: 1px solid rgb(122, 71, 79);
+    
     img{
+        
         width: 40px;
         height: 40px;
         margin: 0px 10px;
+        transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), margin 0.3s, color 0.3s;
+        transition-property: opacity, margin, color;
+        transition-duration: 0.3s, 0.3s, 0.3s;
+        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1), ease, ease;
+        transition-delay: 0s, 0s, 0s;
     }
     .header-title{
         color: white;
         font-size: 16px;
         margin-bottom: 0px;
+        transition: opacity 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), margin 0.3s, color 0.3s;
+        transition-property: opacity, margin, color;
+        transition-duration: 0.3s, 0.3s, 0.3s;
+        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1), ease, ease;
+        transition-delay: 0s, 0s, 0s;
     }
 }
 .ant-layout-sider-collapsed{
-    img{
-        width: 50px;
-        height: 50px;
-        margin: 0px 10px;
+    .nav-header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img{
+            translate: all 0.8s;
+            transform:scale(1.3);
+           
+            margin: 0px 10px;
+        }
+        .header-title{
+            display: none;
+        }
     }
-    .header-title{
-        display: none;
+    
+    .ant-menu-title-content{
+        a{
+            display: none;
+        }
     }
 }

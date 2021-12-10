@@ -2,11 +2,54 @@ import { message } from 'antd'
 import jsonp from 'jsonp'
 import ajax  from './ajax'
 import {BASE_URL,CITY} from '../config/index'
+
+//后台管理
 //登录请求
 // export const reqLogin = (username, password) => ajax('/login', {username, password}, 'POST')
 export const reqLogin = (username, password) => ajax.post(`${BASE_URL}/login`, {username, password})
-console.log(`${BASE_URL}/login`);
 //获取商品列表
+export const reqArticleList = (pageNum,pageSize) => ajax.get(`${BASE_URL}/articleList`,{params:{pageNum,pageSize}})
+    
+//文章是否展示
+export const reqArticleIsShow = (data) => ajax.post(`${BASE_URL}/articleIsShow`,data)
+
+//删除文章
+export const reqDeleteArticlelist = (articleId) => ajax.post(`${BASE_URL}/article/deletearticle`, {articleId})
+
+//获取文章类型列表
+export const reqArticleType = (pageNum,pageSize) => ajax.get(`${BASE_URL}/articleType`,{params:{pageNum,pageSize}})
+
+//添加文章类型分类
+export const reqAddType = (typeValue) => ajax.post(`${BASE_URL}/articletype/addtype`, typeValue)
+
+//修改文章类型分类
+export const reqUpdateType = (typeValue) => ajax.post(`${BASE_URL}/articletype/updatetype`, typeValue)
+
+//根据ID获取文章内容
+export const reqArticleById = (articleId) => ajax.get(`${BASE_URL}/article/info`,{params:{articleId}})
+
+
+
+
+//前台
+export const reqActualCombat = () => ajax.get(`${BASE_URL}/actualCombat`)
+
+export const reqGenerateShortUrl = (url) => ajax.post(`${BASE_URL}/s`,{url})
+
+export const reqGetComment = ()=>ajax.get(`${BASE_URL}/getcomment`)
+
+export const reqSaveComment = (replydata) => ajax.post(`${BASE_URL}/savecomment`,replydata)
+
+export const reqAddLikeOrDislike = (adddata) => ajax.post(`${BASE_URL}/addlikeordislike`,adddata)
+
+export const reqReduceLikeOrDislike = (reduce) => ajax.post(`${BASE_URL}/reducelikeordislike`,reduce)
+
+export const reqBlogContent = (makedid)=>ajax.get(`${BASE_URL}/upload/${makedid}.md`)
+
+export const reqBlogMsg = (id) => ajax.post(`${BASE_URL}/markedcontent`,id)
+
+// export const reqWheather = (cityname) => ajax.post(`${BASE_URL}/wheatherinfo`,cityname)
+
 export const reqCategoryList = () => ajax.get(`${BASE_URL}/manage/category/list`)
     
 //获取天气信息

@@ -36,3 +36,165 @@
     transform: rotate(360deg);
   }
 }
+/* 过度动画 */
+.cssnice{
+  animation: cssnice 1s both;
+}
+@keyframes cssnice{
+  0%{
+    opacity: 0;
+    transform: scale3d(0.3,0.3,0.3);
+  }
+  50%{
+    opacity: 1;
+  }
+}
+/* 过度动画 */
+.cssnice1{
+  animation: cssnice1 1s both;
+}
+@keyframes cssnice1{
+  0%{
+    opacity: 0;
+    transform: translate3d(-100%,0,0);
+  }
+  50%{
+    opacity: 1;
+    transform: translate3d(3%,0,0);
+  }
+  65%{
+    opacity: 1;
+    transform: translate3d(-2.5%,0,0);
+  }
+  80%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  90%{
+    opacity: 1;
+    transform: translate3d(-1%,0,0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+/* 过度动画 */
+.cssnice0{
+  animation: cssnice0 1s both;
+}
+@keyframes cssnice0{
+  0%{
+    opacity: 0;
+    transform: translate3d(-100%,0,0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+/* 过度动画 */
+.cssnice2{
+  animation: cssnice2 1s both;
+}
+@keyframes cssnice2{
+  0%{
+    opacity: 0;
+    transform: translate3d(100%,0,0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+.cssnicehover{
+  transition: all linear .5s;
+}
+.cssnicehover:hover{
+  box-shadow: 0 15px 30px rgba(0,0,0,.1);
+  transform: translate3d(0,-2px,0);
+  background-color: rgba(255,255,255,.5);
+}
+/* .cssnicehover:hover .img{
+  transform:scale(1.1,1.2);
+} */
+.cssnice3{ 
+  /* 分页动画 */
+  animation: cssnice3 1s both;
+}
+@keyframes cssnice3{
+  20%{
+    transform: rotate3d(0, 0, 1, 25deg);
+  }
+  40%{
+    transform: rotate3d(0, 0, 1, -20deg);
+  }
+  60%{
+    transform: rotate3d(0, 0, 1, 15deg);
+  }
+  80%{
+    transform: rotate3d(0, 0, 1, -10deg);
+  }
+  100%{
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+.cssnice4{
+  animation: cssnice4 1s both;
+}
+@keyframes cssnice4{
+  0%{
+    opacity: 0;
+    transform: translate3d(0,100%,0);
+  }
+  50%{
+    opacity: 1;
+    transform: translate3d(0,-3%,0);
+  }
+  65%{
+    opacity: 1;
+    transform: translate3d(0,2.5%,0);
+  }
+  80%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+  90%{
+    opacity: 1;
+    transform: translate3d(0,1%,0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}
+/* 过度动画 */
+.cssniceright{
+  animation: cssniceright 1.2s both;
+}
+@keyframes cssniceright{
+  0%{
+    opacity: 0;
+    transform: translate3d(100%,0,0);
+  }
+  50%{
+    opacity: 1;
+    transform: translate3d(-3%,0,0);
+  }
+  65%{
+    opacity: 1;
+    transform: translate3d(2.5%,0,0);
+  }
+  80%{
+    opacity: 1;
+    transform: translate3d(-2%,0,0);
+  }
+  90%{
+    opacity: 1;
+    transform: translate3d(-1%,0,0);
+  }
+  100%{
+    opacity: 1;
+    transform: translate3d(0,0,0);
+  }
+}

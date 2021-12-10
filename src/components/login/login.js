@@ -1,14 +1,26 @@
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import { connect } from 'react-redux';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import {  useNavigate } from 'react-router-dom';
 import {reqLogin}  from '../../api/index'
 import logo from '../../static/img/logo.png'
+import {createSaveUserInfoAction} from '../../redux/action_creators/login_action'
 import './login.less'
 
-const Login = () => {
+const Login = (props) => {
+    const navigate =  useNavigate()
     const onFinish = async(values) => {
-        let result = await reqLogin(values)
-        console.log(result);
+      console.log(values);
+      const{username,password} = values
+        let result = await reqLogin(username,password)
+        const {status,token,user} = result;
+        if(status === 0){
+          console.log(token,user);
+          console.log(props);
+          props.saveUserInfo(result)
+          navigate('/admin/home');
+        }
       };
       return (
           <div className="login-all">
@@ -27,7 +39,7 @@ const Login = () => {
       onFinish={onFinish}
     >
       <Form.Item
-        name="name"
+        name="username"
         rules={[
           {
             required: true,
@@ -63,4 +75,17 @@ const Login = () => {
       );
 };
 
-export default Login;
+
+const mapStateToProps = (state)=>{
+  return {
+      isLogin:state.userInfo.isLogin
+  }
+}
+// const mapDispatchToProps = () => {
+//   return {
+//     saveUserInfo:createSaveUserInfoAction,
+//   }
+// };
+export default connect(
+  mapStateToProps,{saveUserInfo:createSaveUserInfoAction,}
+)(Login)

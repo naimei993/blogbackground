@@ -1,55 +1,78 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import {Link,useLocation} from 'react-router-dom';
+import {createSaveTitleAction} from '../../../redux/action_creators/menu_action'
 import { Menu } from 'antd';
-import {
-  AppstoreOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
+import  * as Icon from '@ant-design/icons';
 import logo from '../../../static/img/logo.png'
+import menuList from '../../../config/menu_config';
 import './left_nav.less'
 const { SubMenu } = Menu;
-const Left_nav = () => {
 
+
+const Left_nav = (props) => {
+
+  const { pathname } = useLocation();
+     const createMenu = (target)=>{//箭头函数
+        return (target.map((item)=>{//箭头函数
+          if(!item.children){
+            return(
+            <Menu.Item key={item.key} onClick={()=>{props.saveTitle(item.title)}}>
+              <span>{
+                React.createElement(
+                  Icon[item.icon]
+                )
+              }</span>
+              <Link className="nav-item" to={item.path}><span>{item.title}</span></Link>
+            </Menu.Item>
+            )}else{
+              return(
+    <SubMenu key={item.key} icon={React.createElement(Icon[item.icon])} title={<span>{item.title}</span>}>
+    {
+      createMenu(item.children)
+    }
+
+    </SubMenu> 
+              )
+            }
+          
+          
+    }))
+      }
+      let pathnamedetail = pathname.split('/').splice(2)
+      console.log(pathname.split('/').splice(2)[0],pathname.split('/').splice(2)[1]);
+      if(pathnamedetail[1]==='articledetail' ||pathnamedetail[1]==='articleupdate' ){
+        pathnamedetail=['article_about','articlelist']
+      }
     return (
         <div style={{ width: "100%",backgroundColor:"red"}}>
            <header className="nav-header">
-                  <img src={logo} alt=""/>
-                  <div className="header-title">后台管理</div>
+                  <img  src={logo} alt=""/>
+                  <div className="header-title cssnice2">后台管理</div>
               </header>
         <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['']}
+          defaultSelectedKeys={pathnamedetail[1]?[pathnamedetail[1]]:[pathnamedetail[0]]}
+          defaultOpenKeys={pathnamedetail[1]?[pathnamedetail[0]]:['']}
           mode="inline"
           theme="dark"
         >
-          <Menu.Item key="1" icon={<PieChartOutlined />}>
-            Option 1
-          </Menu.Item>
-          <Menu.Item key="2" icon={<DesktopOutlined />}>
-            Option 2
-          </Menu.Item>
-          <Menu.Item key="3" icon={<ContainerOutlined />}>
-            Option 3
-          </Menu.Item>
-          <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-            <Menu.Item key="5">Option 5</Menu.Item>
-            <Menu.Item key="6">Option 6</Menu.Item>
-            <Menu.Item key="7">Option 7</Menu.Item>
-            <Menu.Item key="8">Option 8</Menu.Item>
-          </SubMenu>
-          <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-            <Menu.Item key="9">Option 9</Menu.Item>
-            <Menu.Item key="10">Option 10</Menu.Item>
-            <SubMenu key="sub3" title="Submenu">
-              <Menu.Item key="11">Option 11</Menu.Item>
-              <Menu.Item key="12">Option 12</Menu.Item>
-            </SubMenu>
-          </SubMenu>
+          {createMenu(menuList)}
         </Menu>
       </div>
     );
 };
 
-export default Left_nav;
+const mapStateToProps = (state)=>{
+  return {
+
+  }
+}
+
+// const mapDispatchToProps = () => {
+//   return {
+//     saveUserInfo:createSaveUserInfoAction,
+//   }
+// };
+export default connect(
+  mapStateToProps,{saveTitle:createSaveTitleAction,}
+)(Left_nav)
