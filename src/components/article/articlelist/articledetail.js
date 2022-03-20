@@ -11,13 +11,13 @@ import 'highlight.js/styles/an-old-hope.css'
 const {Item} = List
 const ArticleDetail = () => {
     const { pathname } = useLocation();
-    const pathkey = pathname.split('/').reverse()[0]
+    const pathkey = pathname.split('/').reverse()[0]//根据路径获取文章id
     console.log(pathkey,"AAAAA");
     const [detail,setdetail] = React.useState({
-        isLoading:false,
-        id:'',
-        title:'',
-        type:'',
+        isLoading:false,//是否加载完成
+        id:'',//文章id
+        title:'',//文章标题
+        type:'',//文章类型
         createdDate:'',
         isshow:'',
         top:'',
@@ -41,7 +41,7 @@ const ArticleDetail = () => {
             }
         }
         getArticleById(pathkey)
-    },[])
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
     marked.setOptions({
         renderer: new marked.Renderer(),
         highlight: function (code) {

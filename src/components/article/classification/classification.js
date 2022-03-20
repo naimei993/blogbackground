@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import {v4 as uuidv4} from 'uuid'
 import { PAGE_SIZE } from '../../../config';
 import {createSaveTypeAction} from '../../../redux/action_creators/type_action'
-import {reqArticleType,reqAddType,reqUpdateType} from '../../../api/index'
+import {reqArticleType,reqAddType,reqUpdateType,reqDeleteType} from '../../../api/index'
 const Classification = (props) => {
 
     const [type,settype] = React.useState({
@@ -18,7 +18,8 @@ const Classification = (props) => {
         operType:"",
         isLoading:true,
         modalCurrentValue:"",
-        modalCurrentId:"",
+        modalCurrentId:"",//当前选中的分类id
+        currentPage:'',//当前分页器页数
     })
     let formRef = React.createRef()
     React.useEffect(()=>{
@@ -42,6 +43,25 @@ const Classification = (props) => {
         }
         getArticleType()
     },[])// eslint-disable-line react-hooks/exhaustive-deps
+
+    const getArticleTypestandby = async(number=1)=>{//箭头函数
+        let result = await reqArticleType(number,PAGE_SIZE)
+        const{status,data} = result
+        const {list,total} = data
+        if(status===0){
+          settype(oldState=>({
+              ...oldState,
+              dataSource:list,
+              current:number,
+              total,
+              isLoading:false,
+          }))
+          props.saveTypeList(list)
+        }else{
+            message.error("请求列表出错")
+        }
+        
+  }
     const getType1 = async(number=1)=>{//箭头函数
         let result = await reqArticleType(number,PAGE_SIZE)
         const{status,data} = result
@@ -52,7 +72,8 @@ const Classification = (props) => {
               dataSource:list,
               current:number,
               total,
-            isLoading:false,
+              currentPage:number,
+              isLoading:false,
           }))
           props.saveTypeList(list)
         }else{
@@ -61,9 +82,9 @@ const Classification = (props) => {
     }
     const showUpdate = (item)=>{//箭头函数
         const {id,type} = item
+        console.log(item,"item");
         settype(oldState =>({
             ...oldState,
-            
             operType:"update",
             modalCurrentValue:type,
             modalCurrentId:id,
@@ -79,7 +100,8 @@ const Classification = (props) => {
           settype(oldState =>({
               ...oldState,
               isModalVisible:true,
-              id:item.id
+              modalCurrentId:item.id,
+              modalCurrentValue:item.type,
           }))
     }
     const deleteOk = ()=>{//箭头函数
@@ -87,7 +109,17 @@ const Classification = (props) => {
             ...oldState,
             isModalVisible:false,
         }))
-        console.log(type.id);
+        DeleteType({id:type.modalCurrentId,typevalue:type.modalCurrentValue})
+    }
+    const DeleteType = async(typeValue)=>{//箭头函数
+          let result = await reqDeleteType(typeValue);
+          const{status,data,msg} = result
+          if(status === 0){
+              message.success(msg,1)
+              getArticleTypestandby(type.currentPage)
+          }else{
+              message.error(msg,1)
+          }
     }
     const deleteCancel = ()=>{//箭头函数
         settype(oldState =>({
@@ -120,7 +152,8 @@ const Classification = (props) => {
            console.log(values,"表单values");
            if(type.operType === 'add')  toAdd(values)
             if(type.operType === 'update'){
-                const id= type.id;
+                const id= type.modalCurrentId;
+                console.log(type);
                 const typevalue = values.type;
                 const typeObj = {id,typevalue}
                 toUpdate(typeObj);
@@ -139,7 +172,7 @@ const Classification = (props) => {
               const {data} =result
               const typeList =[...type.dataSource]
               typeList.unshift(data)
-              const total1 = type.total
+              const total1 = type.total +1;
               settype(oldState => ({
                   ...oldState,
                   dataSource:typeList,
@@ -151,10 +184,12 @@ const Classification = (props) => {
           
     }
     const toUpdate = async(typeObj)=>{//箭头函数
-        let result = await reqUpdateType() 
+        let result = await reqUpdateType(typeObj) 
+        console.log(typeObj);
         const{status,msg} = result
           if(status === 0){
               message.success(msg,1)
+              getArticleTypestandby(type.currentPage)
           }else{
               message.error(msg,1)
           }
@@ -186,8 +221,8 @@ const Classification = (props) => {
               <div>
                   <Button type="link" onClick={()=>{showUpdate(item)}}>修改分类</Button>
                   <Button type='link' onClick={()=>{showModal(item)}}>删除分类</Button>
-                        <Modal keyboard destroyOnClose okText="确定" cancelText="取消" title={`删除${item.type}`} visible={type.isModalVisible} onOk={deleteOk} onCancel={deleteCancel}>
-                        <p style={{fontSize:'20px',fontWeight:'500'}}>确定删除<span style={{color:'red'}}>{item.type}?</span></p>
+                        <Modal keyboard destroyOnClose okText="确定" cancelText="取消" title={`删除${type.modalCurrentValue}`} visible={type.isModalVisible} onOk={deleteOk} onCancel={deleteCancel}>
+                        <p style={{fontSize:'20px',fontWeight:'500'}}>确定删除<span style={{color:'red'}}>{type.modalCurrentValue}?</span></p>
                         
                          </Modal>
               </div>

@@ -9,6 +9,7 @@ const Articlelist = (props) => {
   const [articleinfo,setarticleinfo] = React.useState({isModalVisible:false,_id:""})
     const [pageinfo,setpageinfo] = React.useState({current:1,total:"",isLoading:true,})
     const [dataSource, setdataSource] = React.useState('')
+    
    React.useEffect(()=>{
     const getList = async (number=1)=>{
         let result = await reqArticleList(number,PAGE_SIZE)

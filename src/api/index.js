@@ -25,6 +25,9 @@ export const reqAddType = (typeValue) => ajax.post(`${BASE_URL}/articletype/addt
 //修改文章类型分类
 export const reqUpdateType = (typeValue) => ajax.post(`${BASE_URL}/articletype/updatetype`, typeValue)
 
+//删除文章类型
+export const reqDeleteType = (typeValue) => ajax.post(`${BASE_URL}/articletype/deletetype`, typeValue)
+
 //根据ID获取文章内容
 export const reqArticleById = (articleId) => ajax.get(`${BASE_URL}/article/info`,{params:{articleId}})
 
