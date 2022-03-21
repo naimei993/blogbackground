@@ -31,6 +31,20 @@ export const reqDeleteType = (typeValue) => ajax.post(`${BASE_URL}/articletype/d
 //根据ID获取文章内容
 export const reqArticleById = (articleId) => ajax.get(`${BASE_URL}/article/info`,{params:{articleId}})
 
+//获取评论
+export const reqGetCommentBackground = (pageNum,pageSize)=>ajax.get(`${BASE_URL}/getcommentbackground`,{params:{pageNum,pageSize}})
+
+//评论是否展示
+export const reqCommentIsShow = (data) => ajax.post(`${BASE_URL}/commentIsShow`,data)
+
+//删除评论
+export const reqDeleteComment = (id)=>ajax.post(`${BASE_URL}/deletecomment`, {id})
+
+//根据id获取评论
+export const reqCommentById = (commentId) =>ajax.get(`${BASE_URL}/comment/info`,{params:{commentId}})
+
+
+
 
 
 

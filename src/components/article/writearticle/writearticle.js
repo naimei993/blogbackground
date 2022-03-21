@@ -32,6 +32,9 @@ const Writearticle = () => {
     }
   const Git = ()=>{//箭头函数
         console.log(articleContent);
+        settipContent((oldState)=>({//箭头函数
+              ...oldState,
+        }))
   }
   const showCatalogue = ()=>{//箭头函数
     const str = "@[TOC](这里写目录标题)# 一级目录## 二级目录 ### 三级目录"

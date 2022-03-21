@@ -6,3 +6,5 @@ export const BASE_URL = ''//发送基本请求路径，在当前开发环境，�
 export const CITY = '南岸区'
 
 export const PAGE_SIZE = 5
+
+export const COMMENT_PAGE_SIZE = 5

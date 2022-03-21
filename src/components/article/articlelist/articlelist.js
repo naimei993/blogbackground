@@ -6,7 +6,7 @@ import {reqArticleList,reqArticleIsShow,reqDeleteArticlelist} from '../../../api
 import {createSaveArticleAction} from '../../../redux/action_creators/article_action'
 import { PAGE_SIZE } from '../../../config';
 const Articlelist = (props) => {
-  const [articleinfo,setarticleinfo] = React.useState({isModalVisible:false,_id:""})
+    const [articleinfo,setarticleinfo] = React.useState({isModalVisible:false,_id:""})
     const [pageinfo,setpageinfo] = React.useState({current:1,total:"",isLoading:true,})
     const [dataSource, setdataSource] = React.useState('')
     

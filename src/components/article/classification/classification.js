@@ -113,7 +113,7 @@ const Classification = (props) => {
     }
     const DeleteType = async(typeValue)=>{//箭头函数
           let result = await reqDeleteType(typeValue);
-          const{status,data,msg} = result
+          const{status,msg} = result
           if(status === 0){
               message.success(msg,1)
               getArticleTypestandby(type.currentPage)

@@ -10,3 +10,5 @@ export const SAVE_TITLE = 'save_title'
 export const SAVE_ARTICLE_LIST = 'save_article_list'
 //保存商品分类信息
 export const SAVE_TYPE_LIST = 'save_type_list'
+//保存评论列表信息
+export const SAVE_COMMENT_LIST = 'save_comment_list'

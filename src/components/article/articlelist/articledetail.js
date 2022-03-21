@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button,Card,message,List} from 'antd';
 import  { ArrowLeftOutlined} from '@ant-design/icons'
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import {marked} from 'marked'
 import hljs from "highlight.js";
 import { reqArticleById,reqBlogContent} from '../../../api/index'
@@ -10,6 +10,7 @@ import './articledetail.less'
 import 'highlight.js/styles/an-old-hope.css'
 const {Item} = List
 const ArticleDetail = () => {
+    const navigate = useNavigate()
     const { pathname } = useLocation();
     const pathkey = pathname.split('/').reverse()[0]//根据路径获取文章id
     console.log(pathkey,"AAAAA");
@@ -61,7 +62,7 @@ const ArticleDetail = () => {
         <Card 
             title={
             <div className='left-top' >
-                <Button type='link' size='small' onClick={()=>{this.props.history.goBack()}}>
+                <Button type='link' size='small' onClick={()=>{navigate(`/admin/article_about/articlelist`)}}>
                     <ArrowLeftOutlined style={{fontSize:'20px'}} />
                 </Button>
                 <span>文章详情</span>

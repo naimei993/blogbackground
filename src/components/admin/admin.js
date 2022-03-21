@@ -13,6 +13,7 @@ import Writearticle from '../article/writearticle/writearticle'
 import Classification from '../article/classification/classification'
 import Log from '../system/log/log'
 import Comments from '../comments/comments'
+import Commentdetial from '../comments/commentdetial';
 import FriendLink from'../system/friendlink/friendlink'
 import ArticleDetail from '../article/articlelist/articledetail';
 import ArticleUpdate from '../article/articlelist/articleupdate';
@@ -50,7 +51,8 @@ const Admin =(props)=>{//箭头函数
                     <Route path="log"  element={<Log/>}/>
                     <Route path="friendlink"  element={<FriendLink/>}/>
                 </Route>
-                <Route path="/comments" element={<Comments/>}/>
+                <Route path="comments" element={<Comments/>}/>
+                <Route path="comments/:id" element={<Commentdetial/>}/>
                 <Route
                 path="*"
                 element={
